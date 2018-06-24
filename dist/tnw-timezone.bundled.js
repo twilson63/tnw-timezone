@@ -7926,8 +7926,6 @@
 
       setInterval(async () => {
         this.requestRender();
-        await this.renderComplete;
-        this.dispatchEvent(new CustomEvent('change', { detail: {} }));
       }, 1000);
     }
 
@@ -8007,12 +8005,36 @@
         .setZone(tz)
         .toFormat('h:mm:ss a z')}</div>
       <div class="buttons">
-        <button on-click=${() =>
-          (tz = 'America/New_York')} class="dim link">New York</button>
-        <button on-click=${() =>
-          (tz = 'America/Los_Angeles')} class="dim link">Los Angeles</button>
-        <button on-click=${() =>
-          (tz = 'Europe/London')} class="dim link">London</button>
+        <button on-click=${() => {
+          tz = 'America/New_York';
+          this.dispatchEvent(
+            new CustomEvent('timeChange', {
+              bubbles: true,
+              composed: true,
+              detail: { tz }
+            })
+          );
+        }} class="dim link">New York</button>
+        <button on-click=${() => {
+          tz = 'America/Los_Angeles';
+          this.dispatchEvent(
+            new CustomEvent('timeChange', {
+              bubbles: true,
+              composed: true,
+              detail: { tz }
+            })
+          );
+        }} class="dim link">Los Angeles</button>
+        <button on-click=${() => {
+          tz = 'Europe/London';
+          this.dispatchEvent(
+            new CustomEvent('timeChange', {
+              bubbles: true,
+              composed: true,
+              detail: { tz }
+            })
+          );
+        }} class="dim link">London</button>
       </div>
     `
     }

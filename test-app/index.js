@@ -5,7 +5,7 @@ import 'tnw-timezone'
 render(
   <div>
     <h1>Hello Timezone</h1>
-    <tnw-timezone />
+    <tnw-timezone onTick={() => console.log('changed...')} />
   </div>,
   document.getElementById('app')
 )
