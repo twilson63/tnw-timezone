@@ -6,10 +6,23 @@ let tz = 'America/New_York'
 class Timezone extends LitElement {
   constructor() {
     super()
+    this._handleTzChange = this._handleTzChange.bind(this)
 
     setInterval(async () => {
       this.requestRender()
     }, 1000)
+  }
+
+  _handleTzChange(zone) {
+    tz = zone
+    console.log({ tz })
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        bubbles: true,
+        composed: true,
+        detail: { tz }
+      })
+    )
   }
 
   _render() {
@@ -88,20 +101,13 @@ class Timezone extends LitElement {
         .setZone(tz)
         .toFormat('h:mm:ss a z')}</div>
       <div class="buttons">
-        <button on-click=${() => {
-          tz = 'America/New_York'
-          this.dispatchEvent(
-            new CustomEvent('timeChange', {
-              bubbles: true,
-              composed: true,
-              detail: { tz }
-            })
-          )
-        }} class="dim link">New York</button>
+        <button on-click=${this._handleTzChange(
+          'America/New_York'
+        )} class="dim link">New York</button>
         <button on-click=${() => {
           tz = 'America/Los_Angeles'
           this.dispatchEvent(
-            new CustomEvent('timeChange', {
+            new CustomEvent('change', {
               bubbles: true,
               composed: true,
               detail: { tz }
@@ -111,7 +117,7 @@ class Timezone extends LitElement {
         <button on-click=${() => {
           tz = 'Europe/London'
           this.dispatchEvent(
-            new CustomEvent('timeChange', {
+            new CustomEvent('change', {
               bubbles: true,
               composed: true,
               detail: { tz }
