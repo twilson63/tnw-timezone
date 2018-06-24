@@ -8018,28 +8018,15 @@
         .setZone(tz)
         .toFormat('h:mm:ss a z')}</div>
       <div class="buttons">
-        <button on-click=${this._handleTzChange(
-          'America/New_York'
-        )} class="dim link">New York</button>
+        <button on-click=${() =>
+          this._handleTzChange(
+            'America/New_York'
+          )} class="dim link">New York</button>
         <button on-click=${() => {
-          tz = 'America/Los_Angeles';
-          this.dispatchEvent(
-            new CustomEvent('change', {
-              bubbles: true,
-              composed: true,
-              detail: { tz }
-            })
-          );
+          this._handleTzChange('America/Los_Angeles');
         }} class="dim link">Los Angeles</button>
         <button on-click=${() => {
-          tz = 'Europe/London';
-          this.dispatchEvent(
-            new CustomEvent('change', {
-              bubbles: true,
-              composed: true,
-              detail: { tz }
-            })
-          );
+          this._handleTzChange('Europe/London');
         }} class="dim link">London</button>
       </div>
     `
