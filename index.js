@@ -1,11 +1,16 @@
 import { html, LitElement } from '@polymer/lit-element/lit-element.js'
 import { DateTime } from 'luxon'
 
-let tz = 'America/New_York'
-
 class Timezone extends LitElement {
+  static get properties() {
+    return {
+      tz: String
+    }
+  }
+
   constructor() {
     super()
+    this.tz = 'America/New_York'
     this._handleTzChange = this._handleTzChange.bind(this)
 
     setInterval(async () => {
@@ -14,18 +19,17 @@ class Timezone extends LitElement {
   }
 
   _handleTzChange(zone) {
-    tz = zone
-    console.log({ tz })
+    this.tz = zone
     this.dispatchEvent(
       new CustomEvent('change', {
         bubbles: true,
         composed: true,
-        detail: { tz }
+        detail: { tz: this.tz }
       })
     )
   }
 
-  _render() {
+  _render({ tz }) {
     return html`
       <style>
         :host {
