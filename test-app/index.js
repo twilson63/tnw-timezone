@@ -12,7 +12,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Hello Timezone</h1>
-        <tnw-timezone ref="tz" />
+        <tnw-timezone tz="Asia/Tokyo" ref="tz" />
       </div>
     )
   }

@@ -103,7 +103,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({21:[function(require,module,exports) {
+})({16:[function(require,module,exports) {
 /*
 object-assign
 (c) Sindre Sorhus
@@ -194,7 +194,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 	return to;
 };
-},{}],16:[function(require,module,exports) {
+},{}],17:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -248,7 +248,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 }
 
 module.exports = invariant;
-},{}],17:[function(require,module,exports) {
+},{}],18:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -266,7 +266,7 @@ if ('development' !== 'production') {
 }
 
 module.exports = emptyObject;
-},{}],19:[function(require,module,exports) {
+},{}],20:[function(require,module,exports) {
 "use strict";
 
 /**
@@ -303,7 +303,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 };
 
 module.exports = emptyFunction;
-},{}],18:[function(require,module,exports) {
+},{}],19:[function(require,module,exports) {
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
  *
@@ -366,7 +366,7 @@ if ('development' !== 'production') {
 }
 
 module.exports = warning;
-},{"./emptyFunction":19}],40:[function(require,module,exports) {
+},{"./emptyFunction":20}],40:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -380,7 +380,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 module.exports = ReactPropTypesSecret;
 
-},{}],20:[function(require,module,exports) {
+},{}],21:[function(require,module,exports) {
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -1940,7 +1940,7 @@ if ('development' !== "production") {
     module.exports = react;
   })();
 }
-},{"object-assign":21,"fbjs/lib/invariant":16,"fbjs/lib/emptyObject":17,"fbjs/lib/warning":18,"fbjs/lib/emptyFunction":19,"prop-types/checkPropTypes":20}],6:[function(require,module,exports) {
+},{"object-assign":16,"fbjs/lib/invariant":17,"fbjs/lib/emptyObject":18,"fbjs/lib/warning":19,"fbjs/lib/emptyFunction":20,"prop-types/checkPropTypes":21}],6:[function(require,module,exports) {
 'use strict';
 
 if ('development' === 'production') {
@@ -19711,7 +19711,7 @@ if ('development' !== "production") {
     module.exports = reactDom;
   })();
 }
-},{"fbjs/lib/invariant":16,"react":6,"fbjs/lib/warning":18,"fbjs/lib/ExecutionEnvironment":22,"object-assign":21,"fbjs/lib/emptyFunction":19,"prop-types/checkPropTypes":20,"fbjs/lib/getActiveElement":23,"fbjs/lib/shallowEqual":24,"fbjs/lib/containsNode":25,"fbjs/lib/emptyObject":17,"fbjs/lib/hyphenateStyleName":26,"fbjs/lib/camelizeStyleName":27}],7:[function(require,module,exports) {
+},{"fbjs/lib/invariant":17,"react":6,"fbjs/lib/warning":19,"fbjs/lib/ExecutionEnvironment":22,"object-assign":16,"fbjs/lib/emptyFunction":20,"prop-types/checkPropTypes":21,"fbjs/lib/getActiveElement":23,"fbjs/lib/shallowEqual":24,"fbjs/lib/containsNode":25,"fbjs/lib/emptyObject":18,"fbjs/lib/hyphenateStyleName":26,"fbjs/lib/camelizeStyleName":27}],7:[function(require,module,exports) {
 'use strict';
 
 function checkDCE() {
@@ -27668,11 +27668,16 @@ if ('development' === 'production') {
     }
   }
 
-  let tz = 'America/New_York';
-
   class Timezone extends LitElement {
+    static get properties() {
+      return {
+        tz: String
+      }
+    }
+
     constructor() {
       super();
+      this.tz = 'America/New_York';
       this._handleTzChange = this._handleTzChange.bind(this);
 
       setInterval(async () => {
@@ -27681,18 +27686,17 @@ if ('development' === 'production') {
     }
 
     _handleTzChange(zone) {
-      tz = zone;
-      console.log({ tz });
+      this.tz = zone;
       this.dispatchEvent(
         new CustomEvent('change', {
           bubbles: true,
           composed: true,
-          detail: { tz }
+          detail: { tz: this.tz }
         })
       );
     }
 
-    _render() {
+    _render({ tz }) {
       return html$1`
       <style>
         :host {
@@ -27835,7 +27839,7 @@ var App = function (_React$Component) {
           null,
           'Hello Timezone'
         ),
-        _react2.default.createElement('tnw-timezone', { ref: 'tz' })
+        _react2.default.createElement('tnw-timezone', { tz: 'Asia/Tokyo', ref: 'tz' })
       );
     }
   }]);
@@ -27873,7 +27877,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49949' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53319' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
